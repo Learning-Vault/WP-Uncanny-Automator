@@ -6,6 +6,12 @@ This can be used in conjunction with LearnDash LMS
 
 
 ## Installation
+1. Open the wordpress plugin page and click "Add New" -> "Upload Plugin"
+2. Choose the `lv-uncanny-automator.zip` file. The Zip file can be downloaded from our [Releases](https://github.com/Learning-Vault/WP-Uncanny-Automator/releases/) page
+3. Press "Install Now"
+4. Press "Activate Plugin"
+
+## Manual Installation
 
 1. Upload `/lv-uncanny-automator/` folder to your wordpress plugins directory
 2. Activate the `Learning Vault for Uncanny Automator` plugin
