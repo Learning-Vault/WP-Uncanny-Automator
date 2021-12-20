@@ -165,7 +165,7 @@ class LV_Action {
 				"Accept: application/json",
 				"Content-Type: application/json",
 				"ApiKey: ".Automator()->parse->text( $action_meta['API_KEY'], $recipe_id, $user_id, $args ),
-				"Authorization: xBearer ".Automator()->parse->text( $action_meta['AUTH_TOKEN'], $recipe_id, $user_id, $args )
+				"Authorization: Bearer ".Automator()->parse->text( $action_meta['AUTH_TOKEN'], $recipe_id, $user_id, $args )
 			 );
 
 			 curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
