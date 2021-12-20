@@ -70,7 +70,7 @@ class LV_Action {
 					array(
 						'option_code' => 'ACTIVITY_TIME',
 						'label'       => 'Activity Time',
-						'description' => 'In the format of 2021-11-10T08:51:02.465Z',
+						'description' => "In the format of 2021-11-10T08:51:02.465Z OR use the variables '{{Current Date}} {{Current Time}}'",
 						'placeholder' => '',
 						'input_type'  => 'text',
 						'default'     => '',
@@ -142,9 +142,26 @@ class LV_Action {
 	protected function process_action( int $user_id, array $action_data, int $recipe_id, array $args, $parsed ) {
 		$action_meta = $action_data['meta'];
 		// Parsing fields to return an actual value from token
+
+		//Parse UTC Zulu Time
+		$activityTime = DateTime::createFromFormat( 'Y-m-d\TH:i:s\Z' , Automator()->parse->text( $action_meta['ACTIVITY_TIME'], $recipe_id, $user_id, $args ));//->format('Y-m-d');
+
+		if(!$activityTime){
+			// try wordpress format with a space
+			$activityTime = DateTime::createFromFormat( get_option( 'date_format' ). ' ' .get_option( 'time_format' ) . ' P', Automator()->parse->text( $action_meta['ACTIVITY_TIME'], $recipe_id, $user_id, $args ) . " ".wp_timezone_string( ));//->format('Y-m-d');
+			if(!$activityTime){
+				// try wordpress format without a space
+				$activityTime = DateTime::createFromFormat( get_option( 'date_format' ).get_option( 'time_format' ) . ' P', Automator()->parse->text( $action_meta['ACTIVITY_TIME'], $recipe_id, $user_id, $args ) . " ".wp_timezone_string( ));//->format('Y-m-d');
+			}
+		}
+		if(!$activityTime){
+			Automator()->complete->action( $user_id, $action_data, $recipe_id, "Could not parse Activity Date");
+			return;
+		}
+
 		$data = array(
 			'ActivityId'      => Automator()->parse->text( $action_meta['ACTIVITY_ID'], $recipe_id, $user_id, $args ),
-			'ActivityTime'    => Automator()->parse->text( $action_meta['ACTIVITY_TIME'], $recipe_id, $user_id, $args ),
+			'ActivityTime'    => $activityTime->format('Y-m-d\TH:i:se'),
 			'UserId'      => Automator()->parse->text( $action_meta['USER_ID'], $recipe_id, $user_id, $args ),
 			'Email'     => Automator()->parse->text( $action_meta['USER_ID'], $recipe_id, $user_id, $args ),
 			'FirstName' => Automator()->parse->text( $action_meta['FIRST_NAME'], $recipe_id, $user_id, $args ),
