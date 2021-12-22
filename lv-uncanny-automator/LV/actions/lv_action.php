@@ -155,7 +155,8 @@ class LV_Action {
 			}
 		}
 		if(!$activityTime){
-			Automator()->complete->action( $user_id, $action_data, $recipe_id, "Could not parse Activity Date");
+			$action_data["complete_with_errors"] = true;
+			Automator()->complete->action( $user_id, $action_data, $recipe_id, "Could not parse Activity Date of: " . Automator()->parse->text( $action_meta['ACTIVITY_TIME'], $recipe_id, $user_id, $args ));
 			return;
 		}
 
@@ -200,6 +201,7 @@ class LV_Action {
 		if ( $httpcode != 200 ) {
 			//$error_message = $this->get_error_message();
 			// Complete action with errors and log Error message.
+			$action_data["complete_with_errors"] = true;
 			Automator()->complete->action( $user_id, $action_data, $recipe_id, "An Error Occured: HTTP " .$httpcode );
 			return;
 		}
