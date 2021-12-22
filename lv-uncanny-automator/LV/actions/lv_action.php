@@ -141,7 +141,7 @@ class LV_Action {
 	 */
 	protected function process_action( int $user_id, array $action_data, int $recipe_id, array $args, $parsed ) {
 		$action_meta = $action_data['meta'];
-		// Parsing fields to return an actual value from token
+		
 
 		//Parse UTC Zulu Time
 		$activityTime = DateTime::createFromFormat( 'Y-m-d\TH:i:s\Z' , Automator()->parse->text( $action_meta['ACTIVITY_TIME'], $recipe_id, $user_id, $args ));//->format('Y-m-d');
@@ -202,7 +202,13 @@ class LV_Action {
 			//$error_message = $this->get_error_message();
 			// Complete action with errors and log Error message.
 			$action_data["complete_with_errors"] = true;
-			Automator()->complete->action( $user_id, $action_data, $recipe_id, "An Error Occured: HTTP " .$httpcode );
+			$errMsg = "An Error Occured: HTTP " .$httpcode;
+			if($httpcode == 406){
+				//HTTP Invalid model
+				$errMsg = sprintf("Invalid Model: %s", print_r($data, 1));
+			}
+
+			Automator()->complete->action( $user_id, $action_data, $recipe_id,  $errMsg);
 			return;
 		}
 		// Everything went fine. Complete action.
