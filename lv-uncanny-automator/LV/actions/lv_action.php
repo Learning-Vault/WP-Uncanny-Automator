@@ -162,7 +162,7 @@ class LV_Action {
 
 		$data = array(
 			'ActivityId'      => Automator()->parse->text( $action_meta['ACTIVITY_ID'], $recipe_id, $user_id, $args ),
-			'ActivityTime'    => $activityTime->format('Y-m-d\TH:i:se'),
+			'ActivityTime'    => $activityTime->format('Y-m-d\TH:i:sP'),
 			'UserId'      => Automator()->parse->text( $action_meta['USER_ID'], $recipe_id, $user_id, $args ),
 			'Email'     => Automator()->parse->text( $action_meta['USER_ID'], $recipe_id, $user_id, $args ),
 			'FirstName' => Automator()->parse->text( $action_meta['FIRST_NAME'], $recipe_id, $user_id, $args ),

@@ -5,7 +5,7 @@
  * Plugin Name:       Learning Vault for Uncanny Automator
  * Plugin URI:        https://www.learningvault.io/
  * Description:       Learning Vault plugin for Uncanny Automator
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Learning Vault
  * Author URI:        https://www.learningvault.io/
  * License:           GPL-3.0+
