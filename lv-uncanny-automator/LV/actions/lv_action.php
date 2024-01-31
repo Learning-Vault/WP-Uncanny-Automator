@@ -171,7 +171,7 @@ class LV_Action {
 
 
 		
-		$url = "https://events.learningvault.io/api/ActivityEvents";
+		$url = "https://badges.learningvault.io/api/ActivityEvents";
 
 		  	$curl = curl_init($url);
 			curl_setopt($curl, CURLOPT_URL, $url);
