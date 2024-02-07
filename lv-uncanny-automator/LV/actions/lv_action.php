@@ -70,7 +70,7 @@ class LV_Action {
 					array(
 						'option_code' => 'ACTIVITY_TIME',
 						'label'       => 'Activity Time',
-						'description' => "In the format of 2021-11-10T08:51:02.465Z OR use the variables '{{Current Date}} {{Current Time}}'",
+						'description' => "In the format of 2021-11-10T08:51:02.465Z OR pick the variable 'Date and Time' -> 'Current Date and time'",
 						'placeholder' => '',
 						'input_type'  => 'text',
 						'default'     => '',
